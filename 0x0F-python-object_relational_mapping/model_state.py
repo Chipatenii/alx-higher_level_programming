@@ -3,20 +3,21 @@
 Class definition of a City
 """
 
-from sqlalchemy import Column, Integer, String, ForeignKey
-from model_state import Base
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
 
+# Create an instance of declarative_base
+Base = declarative_base()
 
-class City(Base):
-    """
-    City class that inherits from Base
+# Define the State class
+class State(Base):
+    __tablename__ = 'states'
 
-    Attributes:
-        id: Id city
-        name: Name of the city
-        state_id: State id
-    """
-    __tablename__ = "cities"
-    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     name = Column(String(128), nullable=False)
-    state_id = Column(Integer, ForeignKey('states.id'), nullable=False)
+
+# Connect to MySQL server
+engine = create_engine('mysql://username:password@localhost:3306/database_name')
+
+# Create all tables defined by Base
+Base.metadata.create_all(engine)
