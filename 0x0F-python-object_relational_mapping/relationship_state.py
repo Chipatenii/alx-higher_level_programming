@@ -1,20 +1,18 @@
 #!/usr/bin/python3
-from sqlalchemy import Column, Integer, String, text
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-"""
-    Module that performs creates a States class based off of Base.
-"""
+"""Definition of the State class with relationship to City"""
 
-Base = declarative_base()
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+from relationship_city import City, Base
 
 
 class State(Base):
-    """
-        The ``States`` class which inherits from ``Base`` class.
-    """
-    __tablename__ = 'states'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(128), nullable=False)
+    """Class State"""
 
-    cities = relationship("City", backref="state", cascade="all, delete")
+    __tablename__ = 'states'
+    id = Column(Integer, autoincrement=True,
+                primary_key=True, nullable=False, unique=True)
+    name = Column(String(128), nullable=False)
+    cities = relationship('City', backref='state',
+                          cascade='all, delete-orphan')

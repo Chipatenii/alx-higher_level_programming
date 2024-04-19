@@ -24,4 +24,3 @@ if __name__ == "__main__":
     session.add_all([new, new_city])
     session.commit()
     session.close()
-
