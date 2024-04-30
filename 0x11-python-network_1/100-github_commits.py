@@ -6,9 +6,8 @@ This script lists 10 commits (from the most recent to oldest) of a specified rep
 import requests
 import sys
 
-if __name__ == "__main__":
-    repository_name = sys.argv[1]
-    owner_name = sys.argv[2]
+
+def list_commits(repository_name, owner_name):
     url = f'https://api.github.com/repos/{owner_name}/{repository_name}/commits'
     response = requests.get(url)
     commits = response.json()
@@ -16,3 +15,9 @@ if __name__ == "__main__":
         sha = commit['sha']
         author_name = commit['commit']['author']['name']
         print(f"{sha}: {author_name}")
+
+
+if __name__ == "__main__":
+    repository_name = sys.argv[1]
+    owner_name = sys.argv[2]
+    list_commits(repository_name, owner_name)

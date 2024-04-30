@@ -6,13 +6,10 @@ This script takes in a letter and sends a POST request to http://0.0.0.0:5000/se
 import requests
 import sys
 
-if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        q = ""
-    else:
-        q = sys.argv[1]
+
+def search_user(letter):
     url = 'http://0.0.0.0:5000/search_user'
-    data = {'q': q}
+    data = {'q': letter}
     response = requests.post(url, data=data)
     try:
         json_response = response.json()
@@ -22,3 +19,8 @@ if __name__ == "__main__":
             print("No result")
     except ValueError:
         print("Not a valid JSON")
+
+
+if __name__ == "__main__":
+    letter = sys.argv[1] if len(sys.argv) > 1 else ""
+    search_user(letter)

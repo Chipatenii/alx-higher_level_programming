@@ -1,13 +1,20 @@
 #!/usr/bin/python3
 """
-This script takes in a URL, sends a request to the URL, and displays the value of the variable X-Request-Id in the response header.
+This script takes in a URL, sends a request to the URL, and displays the body of the response.
 """
 
 import requests
 import sys
 
+
+def fetch_url_body(url):
+    response = requests.get(url)
+    if response.status_code >= 400:
+        print("Error code:", response.status_code)
+    else:
+        print(response.text)
+
+
 if __name__ == "__main__":
     url = sys.argv[1]
-    response = requests.get(url)
-    x_request_id = response.headers.get('X-Request-Id')
-    print(x_request_id)
+    fetch_url_body(url)
