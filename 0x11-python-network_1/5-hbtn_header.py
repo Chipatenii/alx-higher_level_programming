@@ -1,20 +1,13 @@
 #!/usr/bin/python3
+"""Displays the X-Request-Id header variable of a request to a given URL.
+Usage: ./5-hbtn_header.py <URL>
 """
-This script takes in a URL, sends a request to the URL, and displays the body of the response.
-"""
-
-import requests
 import sys
-
-
-def fetch_url_body(url):
-    response = requests.get(url)
-    if response.status_code >= 400:
-        print("Error code:", response.status_code)
-    else:
-        print(response.text)
+import requests
 
 
 if __name__ == "__main__":
     url = sys.argv[1]
-    fetch_url_body(url)
+
+    r = requests.get(url)
+    print(r.headers.get("X-Request-Id"))
